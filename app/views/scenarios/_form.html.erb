@@ -1,0 +1,53 @@
+<div class="right">
+	<%= link_to "<< Back to Scenarios", website_path(@website), class: "button" %>
+</div>
+
+<%= form_for [@website, @scenario] do |f| %>
+  <% if @scenario.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scenario.errors.count, "error") %> prohibited this scenario from being saved:</h2>
+
+      <ul>
+      <% @scenario.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Name of Scenario:" %>
+    <%= f.text_field :name %>
+  </div>
+
+	<div class="spacer"></div>
+	
+	<div class="spacer"></div>
+	
+	<% @scenario.steps.build if @scenario.steps.empty? %>
+	<table>
+		<thead>
+			<tr>
+				<td>Action</td>
+				<td>Expects</td>
+				<td>Target (optional)</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody class="step_field_wrapper">
+			<%= f.fields_for :steps do |builder| %>
+				<%= render "step_fields", f: builder %>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<div class="spacer"></div>
+	
+  <div class="actions right">
+    <%= link_to_add_fields "Add Step", f, :steps %>
+  </div>
+	
+	<div class="spacer"></div>
+	
+	<%= f.submit "Save Scenario", class: "button" %>
+<% end %>

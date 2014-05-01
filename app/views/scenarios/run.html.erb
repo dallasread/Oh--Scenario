@@ -1,0 +1,40 @@
+<%= link_to "<< Scenarios", website_path(@website) %>
+
+<div class="spacer"></div>
+
+<div class="right">
+	<% if @run[:pass] %>
+		<%= link_to "PASS", "#", class: "button pass" %>
+	<% else %>
+		<%= link_to "FAIL", "#", class: "button fail" %>
+	<% end %>
+</div>
+
+<h1><%= @scenario.name %></h1>
+<h2><%= link_to "- Edit", edit_website_scenario_path(@scenario.website, @scenario) %></h2>
+
+<table>
+	<thead>
+		<tr>
+			<td>Success</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% @run[:steps].each do |step| %>
+			<tr class="<%= step.complete ? "success" : "error" %>">
+				<td>
+					<%=  "&check;".html_safe if step.complete == true %>
+					<%=  "&#10007;".html_safe if step.complete == false %>
+				</td>
+				<td>
+					<%= step.description %>
+					<% unless step.reason.blank? %>
+						<p class="reason"><%= step.reason %></p>
+						<p class="trace"><%= step.trace %></p>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

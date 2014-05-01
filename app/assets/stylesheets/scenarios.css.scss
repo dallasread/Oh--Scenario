@@ -1,0 +1,35 @@
+body, input, textarea, select {
+	font-family: "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+	font-size: 18px;
+	line-height: 25px;
+}
+
+table {
+	width: 100%;
+
+	.success {
+		color: green;
+	}
+		
+	.error {
+		color: red; 
+	}
+	
+	.trace {
+		display: none;
+	}
+	
+	td, th {
+		padding: 10px;
+		border-bottom: 1px solid #ddd;
+	}
+	
+	th {
+		color: #ccc;
+		text-align: left;
+	}
+	
+	input, select {
+		width: 100%;
+	}
+}

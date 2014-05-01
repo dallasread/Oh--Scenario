@@ -1,0 +1,25 @@
+<div class="right">
+	<%= link_to '<< Back to Websites', websites_path, class: "button" %>
+</div>
+
+<%= form_for(@website) do |f| %>
+  <% if @website.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@website.errors.count, "error") %> prohibited this website from being saved:</h2>
+
+      <ul>
+      <% @website.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Name of Website" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Save Website", class: "button" %>
+  </div>
+<% end %>

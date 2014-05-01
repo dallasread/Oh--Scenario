@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Oh! Scenario</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+	<div class="topbar">
+		<div class="container">
+			<h1 class="left"><%= link_to "Oh! Scenario", websites_path %></h1>
+	
+			<% if user_signed_in? %>
+				<h2 class="left"><%= link_to "- #{@website.name}", @website if @website && @website.persisted? %></h2>
+			<% end %>
+	
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div id="yield">
+		<div class="container">
+			<%= yield %>
+		</div>
+	</div>
+
+</body>
+</html>
