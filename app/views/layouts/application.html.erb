@@ -15,6 +15,11 @@
 			<% if user_signed_in? %>
 				<h2 class="left"><%= link_to "- #{@website.name}", @website if @website && @website.persisted? %></h2>
 			<% end %>
+			
+			<div class="right">
+				<%= link_to "My Account", edit_user_registration_path %>
+				<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+			</div>
 	
 			<div class="clear"></div>
 		</div>

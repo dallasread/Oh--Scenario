@@ -10,10 +10,10 @@ class WebsitesController < ApplicationController
   # GET /websites/1
   # GET /websites/1.json
   def show
+    @website.scenarios.map(&:run) if request.path == website_run_path(@website)
     @scenarios = @website.scenarios
     @passing_count = @scenarios.passing.count
     @scenarios_count = @scenarios.count
-    @run_all = true if request.path == website_run_path(@website)
   end
 
   # GET /websites/new

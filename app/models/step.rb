@@ -12,11 +12,11 @@ class Step < ActiveRecord::Base
   def set_description
     self.description = case action
     when "visit"
-      "Visit #{expects}."
+      "Visit \"#{expects}\"."
     when "click_link"
-      "Click #{expects}."
+      "Click \"#{expects}\"."
     when "click_button"
-      "Click #{expects}."
+      "Click \"#{expects}\"."
     when "fill_in"
       if expects.include? "*"
         "Fill in \"#{target}\" with \"********\"."

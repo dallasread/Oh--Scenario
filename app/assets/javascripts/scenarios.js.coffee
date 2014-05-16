@@ -1,5 +1,5 @@
 $(document).on "click", ".error", ->
-	$(this).find(".trace").toggle(150)
+	$(this).find(".trace").toggle(150) if $(this).find(".trace").text().length
 
 $ ->
 	Scenarios.setOrdinals()

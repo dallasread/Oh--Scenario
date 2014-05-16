@@ -10,8 +10,6 @@ class Scenario < ActiveRecord::Base
   scope :passing, -> { where latest_result: true }
   scope :failing, -> { where latest_result: false }
   
-  after_save :run
-  
   def run
     pass = true
       
@@ -26,7 +24,7 @@ class Scenario < ActiveRecord::Base
         when "visit"
           visit step.expects
         when "click_link"
-          click_link step.expects
+          page.all("a", text: step.expects, visible: true).first.click
         when "click_button"
           click_button step.expects
         when "fill_in"

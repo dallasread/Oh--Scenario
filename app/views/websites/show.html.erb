@@ -1,11 +1,12 @@
 <div class="right">
+	<%= link_to 'Run All Scenarios', website_run_path(@website), class: "button" %>
 	<%= link_to 'New Scenario', new_website_scenario_path(@website), class: "button" %>
 </div>
 
 <% if @passing_count == @scenarios_count %>
-	<%= link_to "PASS", "#", class: "button pass", style: "margin-right: 20px; " %>
+	<p class="button pass" style="margin-right: 20px; ">PASS</p>
 <% else %>
-	<%= link_to "FAIL", "#", class: "button fail", style: "margin-right: 20px; " %>
+	<p class="button fail" style="margin-right: 20px; ">FAIL</p>
 <% end %>
 
 <%= @passing_count %> / <%= pluralize @scenarios_count, "Scenario" %> Passing
@@ -22,11 +23,12 @@
 
   <tbody>
     <% @scenarios.each do |scenario| %>
-			<% scenario.run if @run_all %>
       <tr>
-        <td class="<%=  scenario.latest_result ? "success" : "error" %>"><%= link_to scenario.name, edit_website_scenario_path(scenario.website, scenario) %></td>
-        <td><%= link_to 'See Results', website_scenario_run_path(scenario.website, scenario) %></td>
-        <td><%= link_to 'x', website_scenario_path(scenario.website, scenario), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="<%=  scenario.latest_result ? "success" : "error" %>">
+					<%= link_to scenario.name, website_scenario_run_path(scenario.website, scenario) %>
+				</td>
+        <td><%= link_to "Edit", edit_website_scenario_path(scenario.website, scenario) %></td>
+        <td><%= link_to 'Delete', website_scenario_path(scenario.website, scenario), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
