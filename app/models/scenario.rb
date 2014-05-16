@@ -22,13 +22,18 @@ class Scenario < ActiveRecord::Base
       sts.each do |step|
         case step.action
         when "visit"
-          visit step.expects
+          if step.expects.include? "http"
+            visit step.expects
+          else
+            visit "#{step.website.default_url}#{step.expects}"
+          end
         when "click_link"
-          page.all("a", text: step.expects, visible: true).first.click
+          a = page.all("a", text: step.expects, visible: true).first
+          a ? a.click : raise(TypeError, "Link was not found on the page.")
         when "click_button"
           click_button step.expects
         when "fill_in"
-          fill_in step.target, with: step.expects.gsub("*", "")
+          fill_in step.target, with: step.expects.gsub(/^\*/, "")
         when "assert_page_content"
           step.complete = page.source.include? step.expects
           raise TypeError, "Text was not found on the page." unless step.complete

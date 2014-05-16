@@ -2,6 +2,7 @@ class Step < ActiveRecord::Base
   attr_accessor :complete, :reason, :trace
 
   belongs_to :scenario
+  has_one :website, through: :scenario
   
   validates_presence_of :expects
   

@@ -1,6 +1,9 @@
 $(document).on "click", ".error", ->
 	$(this).find(".trace").toggle(150) if $(this).find(".trace").text().length
 
+$(document).on "keyup", ".expects", ->
+	Scenarios.hidePasswords()
+
 $ ->
 	Scenarios.setOrdinals()
 
@@ -22,3 +25,12 @@ $ ->
 		$(".step:visible").each ->
 			index = $(this).index()
 			$(this).find(".step_ordinal").val index
+		
+		Scenarios.hidePasswords()
+	
+	hidePasswords: ->
+		$(".expects").each ->
+			if $(this).val()[0] == "*"
+				$(this).attr "type", "password"
+			else
+				$(this).attr "type", "text"
