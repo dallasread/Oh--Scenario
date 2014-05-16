@@ -1,5 +1,5 @@
 <tr class="step">
-	<td><%= f.select :action, options_for_select([["Visit", "visit"], ["Fill In", "fill_in"], ["Click Link", "click_link"], ["Click Button", "click_button"], ["Page should contain", "assert_page_content"]], f.object.try(:action)) %></td>
+	<td><%= f.select :action, options_for_select([["Visit", "visit"], ["Fill In", "fill_in"], ["Click Link", "click_link"], ["Click Button", "click_button"], ["Choose from Select", "select"], ["Confirm Popup Alert", "confirm"], ["Wait", "sleep"], ["Page Should Contain", "assert_page_content"], ["Page Should Not Contain", "not_assert_page_content"]], f.object.try(:action)) %></td>
 	<td><%= f.text_field :expects, class: "expects" %></td>
 	<td><%= f.text_field :target %></td>
 	<td>

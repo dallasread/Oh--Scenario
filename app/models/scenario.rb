@@ -3,7 +3,7 @@ class Scenario < ActiveRecord::Base
   
   belongs_to :website
   has_many :steps
-  accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: proc { |s| s[:expects].blank? }
+  accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: proc { |s| s[:action].blank? }
   
   validates_presence_of :website, :name
   
@@ -34,6 +34,15 @@ class Scenario < ActiveRecord::Base
           click_button step.expects
         when "fill_in"
           fill_in step.target, with: step.expects.gsub(/^\*/, "")
+        when "select"
+          select(step.expects, from: step.target)
+        when "sleep"
+          sleep step.expects.to_f
+        when "confirm"
+          page.driver.accept_js_confirms!
+        when "not_assert_page_content"
+          step.complete = !page.source.include?(step.expects)
+          raise TypeError, "Text was found on the page." unless step.complete
         when "assert_page_content"
           step.complete = page.source.include? step.expects
           raise TypeError, "Text was not found on the page." unless step.complete
